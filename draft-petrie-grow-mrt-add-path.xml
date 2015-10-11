@@ -237,12 +237,8 @@
 	</section>
 
     <section anchor="IANA" title="IANA Considerations">
-      <t>All drafts are required to have an IANA considerations section (see
-      <xref target="I-D.narten-iana-considerations-rfc2434bis">the update of
-      RFC 2434</xref> for a guide). If the draft does not require IANA to do
-      anything, the section contains an explicit statement that this is the
-      case (as above). If there are no requirements for IANA, the section will
-      be removed during conversion into an RFC by the RFC Editor.</t>
+	<t>This document requests that IANA add the appropriate Type Codes
+	and Subtype Codes (to be assigned). This is currently a placeholder.
     </section>
 
     <section anchor="Security" title="Security Considerations">
