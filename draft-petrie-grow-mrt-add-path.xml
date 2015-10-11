@@ -238,7 +238,7 @@
 
     <section anchor="IANA" title="IANA Considerations">
 	<t>This document requests that IANA add the appropriate Type Codes
-	and Subtype Codes (to be assigned). This is currently a placeholder.
+	and Subtype Codes (to be assigned). This is currently a placeholder.</t>
     </section>
 
     <section anchor="Security" title="Security Considerations">
