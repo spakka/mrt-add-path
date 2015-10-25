@@ -237,8 +237,7 @@
 	</section>
 
     <section anchor="IANA" title="IANA Considerations">
-	<t>This document requests that IANA add the appropriate Type Codes
-	and Subtype Codes (to be assigned). This is currently a placeholder.</t>
+	<t>This document requests that IANA add the appropriate Subtype Codes (to be assigned) for the BGP4MP, BGP4MP_ET and TABLE_DUMP_V2 Types. This is currently a placeholder.</t>
     </section>
 
     <section anchor="Security" title="Security Considerations">
