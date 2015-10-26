@@ -247,9 +247,10 @@
 	<t>An organisation which uses the MRT format to store their BGP routing information should be aware that supporting
 	these extensions permits more detailed network path information to be stored, and should consider the implications
 	of this within their environment</t>
-	<t>An network that peers with public BGP collectors, and enable the additional-paths capability on a
-	the peering session, should be aware that they are exporting not only their best paths, but potentially other
-	paths within their network. The BGP peer should consider any implications of exposing this additional data.</t>
+	<t>An network that peers with public BGP collectors, and enable the additional-paths capability on
+	their peering session with the collector, should be aware that they are exporting not only their 
+        best paths, but potentially other paths within their network. The BGP peer should consider any 
+        implications of exposing this additional data.</t>
     </section>
   </middle>
 
