@@ -56,18 +56,29 @@
 		Routing Information Export Format with
 		BGP Additional Paths Extensions
 	</title>
-    <author fullname="Colin Petrie" initials="C"
-            surname="Petrie">
-      <organization>RIPE NCC</organization>
-      <address>
-        <postal>
-			<street></street>
-          <city>Amsterdam</city>
-          <country>NL</country>
-        </postal>
-        <email>cpetrie@ripe.net</email>
-      </address>
+    <author fullname="Colin Petrie" initials="C" surname="Petrie">
+    	<organization>RIPE NCC</organization>
+      	<address>
+        	<postal>
+				<street></street>
+          		<city>Amsterdam</city>
+          		<country>NL</country>
+        	</postal>
+        	<email>cpetrie@ripe.net</email>
+      	</address>
     </author>
+    <author fullname="Thomas King" initials="T." surname="King">
+		<organization>DE-CIX Management GmbH</organization>
+		<address>
+			<postal>
+				<street>Lichtstrasse 43i</street>
+				<city>Cologne</city>
+				<code>50825</code>
+				<country>Germany</country>
+			</postal>
+			<email>thomas.king@de-cix.net</email>
+		</address>
+	</author>
 
     <date month="October" year="2015" />
 
@@ -97,30 +108,30 @@
          keywords will be used for the search engine. -->
 
     <abstract>
-      <t>This document updates the Multi-threaded Routing Toolkit (MRT)
+    <t>
+    	This document updates the Multi-threaded Routing Toolkit (MRT)
 		export format for Border Gateway Protocol (BGP) routing information
-		by extending it to support the Advertisement of Multiple Paths in BGP extensions.</t>
+		by extending it to support the Advertisement of Multiple Paths in BGP extensions.
+	</t>
     </abstract>
   </front>
 
   <middle>
     <section anchor="intro" title="Introduction">
-      <t>
-   Researchers and engineers often wish to analyze network behavior by
-   studying routing protocol transactions and routing information base
-   snapshots. To this end, the <xref target="RFC6396">MRT record format</xref> was developed to
-   encapsulate, export, and archive this information in a standardized
-   data representation.</t>
-	<t>
-	The <xref target="I-D.ietf-idr-add-paths">Advertisement of Multiple Paths in BGP</xref>
-	defines a BGP extension to allow the advertisement of multiple paths for the same address
-	prefix without the new paths implicitly replacing any previous ones. The essence of the 
-	extension is that each path is identified by a path identifier in addition to the addres prefix
+    <t>
+      	The <xref target="RFC6396">MRT record format</xref> was developed to provide researchers
+      	and engineers a means to encapsulate, export, and archive routing protocol transactions
+      	and routing information base snapshots.
 	</t>
 	<t>
-	This memo documents an optional extension to the MRT format <xref target="RFC6396">RFC6396</xref>
-	and introduces additional definitions of MRT Subtype fields to permit representation of
-	Multiple Path advertisements
+		The <xref target="I-D.ietf-idr-add-paths">Advertisement of Multiple Paths in BGP</xref>
+		defines a BGP extension to allow the advertisement of multiple paths for the same address
+		prefix without the new paths implicitly replacing any previous ones.
+	</t>
+	<t>
+		This document contains an optional extension to the MRT format <xref target="RFC6396"/>
+		and introduces additional definitions of MRT subtype fields to permit representation of
+		multiple path advertisements <xref target="I-D.ietf-idr-add-paths"/>.
 	</t>
 
     </section>
@@ -132,129 +143,151 @@
       </section>
 	<section title="Rationale">
 	<t>
-	When a BGP message requires information about the capabilities
-	negotiated during the setup of the BGP session for a parser to
-	interpret the message, this information is carried by the MRT subtypes.
-	</t>
-	<t>The MRT specification defines the following BGP4MP subtypes:
-	<list style="symbols">
-		<t>BGP4MP_MESSAGE</t>
-		<t>BGP4MP_MESSAGE_AS4</t>
-		<t>BGP4MP_MESSAGE_LOCAL</t>
-		<t>BGP4MP_MESSAGE_AS4_LOCAL</t>
-	</list>
+		MRT parsers are usually stateless. In order to parse BGP messages which contain data structures that depend on
+		the capabilities negotiated during the BGP session setup, the so-called MRT subtypes are utilized.
+	
+		The <xref target="I-D.ietf-idr-add-paths">Advertisement of Multiple Path</xref> extension for BGP alters
+		the encoding of the BGP NLRI format for withdraws and announcements. Therefore new BGP4MP subtypes as defined
+		in <xref target="RFC6396"/> are required to signal to
+		a MRT parser how to parse the NLRI.
 	</t>
 	<t>
-	These indicate to a parser whether the AS_PATH and AGGREGATOR attributes should
-	be interpretted according to the rules in <xref target="RFC6793">RFC6793</xref>
+		In <xref target="RFC6396">section 4.3</xref> of the MRT specification RIB subtypes are specified. Prefix length
+		and prefix fields are encoded in the same manner as the BGP NLRI encoding. In order to support path identifier information
+		as defined in <xref target="I-D.ietf-idr-add-paths"/> new subtypes need to be added.
 	</t>
-	<t><xref target="I-D.ietf-idr-add-paths">Additional Paths in BGP</xref> alters the encoding
-	of the BGP NLRI format for withdraws and announcements. Therefore new BGP4MP subtypes are required to
-	signal to a parser how to parse the NLRI.</t>
-	<t>The MRT specification defines the following TABLE_DUMP_V2 subtypes:
-	<list style="symbols">
-		<t>RIB_IPV4_UNICAST</t>
-		<t>RIB_IPV4_MULTICAST</t>
-		<t>RIB_IPV6_UNICAST</t>
-		<t>RIB_IPV6_MULTICAST</t>
-		<t>RIB_GENERIC</t>
-	</list>
+	<t>
+		The following two sections define the required subtypes.
 	</t>
-	<t>The existing TABLE_DUMP_V2 AFI/SAFI-Specific RIB Subtypes specify that the Prefix Length
-	and Prefix fields are encoded in the same manner as the BGP NLRI encoding. These also require new
-	subtypes to retain the path identifier information in Additional Paths.</t>
-	<t>The TABLE_DUMP_V2 RIB_GENERIC subtype contains a single raw NLRI entry, the encoding of which
-	is defined by the AFI and SAFI. Additional Paths alter the NLRI encoding. Therefore a new subtype is
-	required to indicate the change in NLRI format.</t>
 	</section>
 
 	<section title="MRT Subtypes for Type BGP4MP">
-	<t>This document defines the following new Subtypes:
-	<list style="symbols">
-	<t>BGP4MP_MESSAGE_AP</t>
-	<t>BGP4MP_MESSAGE_AS4_AP</t>
-	<t>BGP4MP_MESSAGE_LOCAL_AP</t>
-	<t>BGP4MP_MESSAGE_AS4_LOCAL_AP</t>
-	</list></t>
 	<t>
-	The fields of these message types are identical to the equivalent non-additional-path versions
-	specified in <xref target="RFC6396">RFC 6396</xref>,
-	and continues to encapsulate the entire BGP message in the BGP Message field.
+		This document defines the following new Subtypes:
+		<list style="symbols">
+			<t>BGP4MP_MESSAGE_AP</t>
+			<t>BGP4MP_MESSAGE_AS4_AP</t>
+			<t>BGP4MP_MESSAGE_LOCAL_AP</t>
+			<t>BGP4MP_MESSAGE_AS4_LOCAL_AP</t>
+		</list>
+	</t>
+	<t>
+		The fields of these message types are identical to the equivalent non-additional-path versions
+		specified in <xref target="RFC6396">section 4.4</xref>. These enhancements
+		continues to encapsulate the entire BGP message in the BGP message field.
 	</t>
 	</section>
 
 	<section title="MRT Subtypes for Type TABLE_DUMP_V2">
-	<t>This document defines the following new Subtypes:
-	<list style="symbols">
-	<t>RIB_IPV4_UNICAST_AP</t>
-	<t>RIB_IPV4_MULTICAST_AP</t>
-	<t>RIB_IPV6_UNICAST_AP</t>
-	<t>RIB_IPV6_MULTICAST_AP</t>
-	<t>RIB_GENERIC_AP</t>
-	</list></t>
 	<t>
-	The fields of these message types are identical to the equivalent non-additional-path versions
-	specified in <xref target="RFC6396">RFC 6396</xref>. However, for the specific case of the 4
-	AFI/SAFI specific RIB Subtypes, the existing RIB Entries field is re-defined
-	as detailed in the sections below.
+		This document defines the following new Subtypes:
+		<list style="symbols">
+			<t>RIB_IPV4_UNICAST_AP</t>
+			<t>RIB_IPV4_MULTICAST_AP</t>
+			<t>RIB_IPV6_UNICAST_AP</t>
+			<t>RIB_IPV6_MULTICAST_AP</t>
+			<t>RIB_GENERIC_AP</t>
+		</list>
 	</t>
+	<t>
+		The fields of these message types are identical to the equivalent non-additional-path versions
+		specified in <xref target="RFC6396">section 4.3</xref>. However, for the specific case of the 4
+		AFI/SAFI specific RIB subtypes, the existing RIB entries field is re-defined
+		as detailed in the sections below.
+	</t>
+
 	<section title="AFI/SAFI specific RIB Subtypes">
-	<t>In order to preserve the record compaction achieved by using the most
-	common subtypes, and allowing multiple RIB entries to be stored in a single
-	TABLE_DUMP_V2 record, the existing RIB Entries field is redefined for use
-	within the new AFI/SAFI specific RIB Subtypes defined by this document as follows:
+	<t>
+		In order to preserve the record compaction achieved by using the most
+		common subtypes, and allowing multiple RIB entries to be stored in a single
+		TABLE_DUMP_V2 record, the existing RIB entries field is redefined for use
+		within the new AFI/SAFI specific RIB Subtypes defined by this document as follows:
 	</t>
-<figure title="RIB Entries for AFI/SAFI-specific RIB Subtypes with additional-paths support" anchor="RIBEntries"><artwork>
+	<figure title="RIB Entries for AFI/SAFI-specific RIB Subtypes with additional-paths support" anchor="RIBEntries">
+		<artwork>
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |         Peer Index            |
+    |         Peer Index            | ?????????????????????????????
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
     |                         Originated Time                       |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
     |                         Path Identifier                       |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
-    |      Attribute Length         |
+    |      Attribute Length         | ?????????????????????????????
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                    BGP Attributes... (variable)
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</artwork></figure>
-	<t>This adds a field to the RIB Entries record, to store the Path Identifier, when used with the
-	RIB_IPV4_UNICAST_AP, RIB_IPV4_MULTICAST_AP, RIB_IPV6_UNICAST_AP and RIB_IPV6_MULTICAST_AP Subtypes
+		</artwork>
+	</figure>
+	<t>
+		This adds a field to the RIB entries record, to store the path identifier, when used with the
+		RIB_IPV4_UNICAST_AP, RIB_IPV4_MULTICAST_AP, RIB_IPV6_UNICAST_AP and RIB_IPV6_MULTICAST_AP subtypes.
 	</t>
 	</section>
+
 	<section title="RIB_GENERIC_AP Subtype">
 	<t>
-	The fields of this message types is identical to the equivalent non-additional-path 
-	versions specified in <xref target="RFC6396">RFC 6396</xref>, and continues to 
-	encapsulate the raw AFI/SAFI/NLRI in the record, and the raw attributes in the RIB Entries.
+		The fields of these message types are identical to the equivalent non-additional-path 
+		versions specified in <xref target="RFC6396">section 4.3.3</xref>, and continues to 
+		encapsulate the raw and addtional-path enabled AFI/SAFI/NLRI in the record, and the
+		raw attributes in the RIB entries.
 	</t>
-	<t>The RIB entries are unchanged, and should be interpreted according to  <xref target="RFC6396">RFC 6396</xref>
-	</t>
-	
 	</section>
 
 	</section>
 
     <section anchor="IANA" title="IANA Considerations">
-	<t>This document requests that IANA add the appropriate Subtype Codes (to be assigned) for the BGP4MP, BGP4MP_ET and TABLE_DUMP_V2 Types. This is currently a placeholder.</t>
-    </section>
+	<t>
+		This document requests that IANA adds the appropriate type codes and subtype codes to the MRT name space as follows:
+	</t>
+	
+	<section title="BGP4MP subtype codes:">
+	<t>
+	<list style="symbols">
+		<t>BGP4MP_MESSAGE_AP = 8</t>
+		<t>BGP4MP_MESSAGE_AS4_AP = 9</t>
+		<t>BGP4MP_MESSAGE_LOCAL_AP = 10</t>
+		<t>BGP4MP_MESSAGE_AS4_LOCAL_AP = 11</t>
+	</list>
+	</t>
+	</section>
+
+	<section title="TABLE_DUMP_V2 subtype codes:">
+	<t>
+	<list style="symbols">
+		<t>RIB_IPV4_UNICAST_AP = 8</t>
+		<t>RIB_IPV4_MULTICAST_AP = 9</t>
+		<t>RIB_IPV6_UNICAST_AP = 10</t>
+		<t>RIB_IPV6_MULTICAST_AP = 11</t>
+		<t>RIB_GENERIC_AP = 12</t>
+	</list>
+	</t>
+	</section>
+    
+   	</section>
 
     <section anchor="Security" title="Security Considerations">
-	<t>It is not believed that this document adds any additional security considerations</t>
-	<t>However, the security considerations of <xref target="RFC6396">RFC6396</xref> are equally applicable
-	to this document, and this document permits the export of more detailed routing data.</t>
-	<t>An organisation which uses the MRT format to store their BGP routing information should be aware that supporting
-	these extensions permits more detailed network path information to be stored, and should consider the implications
-	of this within their environment</t>
-	<t>An network that peers with public BGP collectors, and enable the additional-paths capability on
-	their peering session with the collector, should be aware that they are exporting not only their 
-        best paths, but potentially other paths within their network. The BGP peer should consider any 
-        implications of exposing this additional data.</t>
+	<t>
+		It is not believed that this document adds any additional security considerations.
+	</t>
+	<t>
+		However, the security considerations of <xref target="RFC6396"/> are equally applicable
+		to this document, and this document permits the export of more detailed routing data.
+	</t>
+	<t>
+		An organisation which uses the MRT format to store their BGP routing information should be aware that supporting
+		these extensions permits more detailed network path information to be stored, and should consider the implications
+		of this within their environment
+	</t>
+	<t>
+		An network that peers with public BGP collectors, and enables the advertisement of multiple paths
+		in BGP capability on their peering session with the collector, should be aware that they are exporting
+		not only their best paths, but potentially other paths within their network. The BGP peer should consider any 
+        implications of exposing this additional data.
+    </t>
     </section>
   </middle>
-
-  <!--  *****BACK MATTER ***** -->
 
   <back>
     <!-- References split into informative and normative -->
