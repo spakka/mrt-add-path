@@ -165,10 +165,10 @@
 	<t>
 		This document defines the following new Subtypes:
 		<list style="symbols">
-			<t>BGP4MP_MESSAGE_AP</t>
-			<t>BGP4MP_MESSAGE_AS4_AP</t>
-			<t>BGP4MP_MESSAGE_LOCAL_AP</t>
-			<t>BGP4MP_MESSAGE_AS4_LOCAL_AP</t>
+			<t>BGP4MP_MESSAGE_ADDPATH</t>
+			<t>BGP4MP_MESSAGE_AS4_ADDPATH</t>
+			<t>BGP4MP_MESSAGE_LOCAL_ADDPATH</t>
+			<t>BGP4MP_MESSAGE_AS4_LOCAL_ADDPATH</t>
 		</list>
 	</t>
 	<t>
@@ -182,11 +182,11 @@
 	<t>
 		This document defines the following new Subtypes:
 		<list style="symbols">
-			<t>RIB_IPV4_UNICAST_AP</t>
-			<t>RIB_IPV4_MULTICAST_AP</t>
-			<t>RIB_IPV6_UNICAST_AP</t>
-			<t>RIB_IPV6_MULTICAST_AP</t>
-			<t>RIB_GENERIC_AP</t>
+			<t>RIB_IPV4_UNICAST_ADDPATH</t>
+			<t>RIB_IPV4_MULTICAST_ADDPATH</t>
+			<t>RIB_IPV6_UNICAST_ADDPATH</t>
+			<t>RIB_IPV6_MULTICAST_ADDPATH</t>
+			<t>RIB_GENERIC_ADDPATH</t>
 		</list>
 	</t>
 	<t>
@@ -222,11 +222,11 @@
 	</figure>
 	<t>
 		This adds a field to the RIB entries record, to store the path identifier, when used with the
-		RIB_IPV4_UNICAST_AP, RIB_IPV4_MULTICAST_AP, RIB_IPV6_UNICAST_AP and RIB_IPV6_MULTICAST_AP subtypes.
+		RIB_IPV4_UNICAST_ADDPATH, RIB_IPV4_MULTICAST_ADDPATH, RIB_IPV6_UNICAST_ADDPATH and RIB_IPV6_MULTICAST_ADDPATH subtypes.
 	</t>
 	</section>
 
-	<section title="RIB_GENERIC_AP Subtype">
+	<section title="RIB_GENERIC_ADDPATH Subtype">
 	<t>
 		The fields of these message types are identical to the equivalent non-additional-path 
 		versions specified in <xref target="RFC6396">section 4.3.3</xref>, and continues to 
@@ -245,10 +245,10 @@
 	<section title="BGP4MP subtype codes:">
 	<t>
 	<list style="symbols">
-		<t>BGP4MP_MESSAGE_AP = 8</t>
-		<t>BGP4MP_MESSAGE_AS4_AP = 9</t>
-		<t>BGP4MP_MESSAGE_LOCAL_AP = 10</t>
-		<t>BGP4MP_MESSAGE_AS4_LOCAL_AP = 11</t>
+		<t>BGP4MP_MESSAGE_ADDPATH = 8</t>
+		<t>BGP4MP_MESSAGE_AS4_ADDPATH = 9</t>
+		<t>BGP4MP_MESSAGE_LOCAL_ADDPATH = 10</t>
+		<t>BGP4MP_MESSAGE_AS4_LOCAL_ADDPATH = 11</t>
 	</list>
 	</t>
 	</section>
@@ -256,11 +256,11 @@
 	<section title="TABLE_DUMP_V2 subtype codes:">
 	<t>
 	<list style="symbols">
-		<t>RIB_IPV4_UNICAST_AP = 8</t>
-		<t>RIB_IPV4_MULTICAST_AP = 9</t>
-		<t>RIB_IPV6_UNICAST_AP = 10</t>
-		<t>RIB_IPV6_MULTICAST_AP = 11</t>
-		<t>RIB_GENERIC_AP = 12</t>
+		<t>RIB_IPV4_UNICAST_ADDPATH = 8</t>
+		<t>RIB_IPV4_MULTICAST_ADDPATH = 9</t>
+		<t>RIB_IPV6_UNICAST_ADDPATH = 10</t>
+		<t>RIB_IPV6_MULTICAST_ADDPATH = 11</t>
+		<t>RIB_GENERIC_ADDPATH = 12</t>
 	</list>
 	</t>
 	</section>
