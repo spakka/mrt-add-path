@@ -1,0 +1,41 @@
+commit 51671ab211582fd80f692e1ec75cb087b40a0443
+Author: Colin Petrie <cpetrie@ripe.net>
+Date:   Thu Nov 5 13:59:42 2015 +0900
+
+    Adding initial support for draft-petrie-grow-mrt-add-paths
+
+diff --git a/nest/mrtdump.h b/nest/mrtdump.h
+index 7393255..66c0aaa 100644
+--- a/nest/mrtdump.h
++++ b/nest/mrtdump.h
+@@ -22,6 +22,8 @@
+ #define BGP4MP_MESSAGE		1
+ #define BGP4MP_MESSAGE_AS4	4
+ #define BGP4MP_STATE_CHANGE_AS4	5
++#define BGP4MP_MESSAGE_ADDPATH		8
++#define BGP4MP_MESSAGE_AS4_ADDPATH	9
+ 
+ 
+ /* implemented in sysdep */
+diff --git a/proto/bgp/packets.c b/proto/bgp/packets.c
+index ed99f62..ab4e8b8 100644
+--- a/proto/bgp/packets.c
++++ b/proto/bgp/packets.c
+@@ -87,11 +87,16 @@ mrt_dump_bgp_packet(struct bgp_conn *conn, byte *pkt, unsigned len)
+   byte *buf = alloca(128+len);	/* 128 is enough for MRT headers */
+   byte *bp = buf + MRTDUMP_HDR_LENGTH;
+   int as4 = conn->bgp->as4_session;
++  int addpath = conn->bgp->add_path_rx;
+ 
+   bp = mrt_put_bgp4_hdr(bp, conn, as4);
+   memcpy(bp, pkt, len);
+   bp += len;
+-  mrt_dump_message(&conn->bgp->p, BGP4MP, as4 ? BGP4MP_MESSAGE_AS4 : BGP4MP_MESSAGE,
++  if (addpath)
++    mrt_dump_message(&conn->bgp->p, BGP4MP, as4 ? BGP4MP_MESSAGE_AS4_ADDPATH : BGP4MP_MESSAGE_ADDPATH,
++		   buf, bp-buf);
++  else
++    mrt_dump_message(&conn->bgp->p, BGP4MP, as4 ? BGP4MP_MESSAGE_AS4 : BGP4MP_MESSAGE,
+ 		   buf, bp-buf);
+ }
+ 
