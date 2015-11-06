@@ -199,8 +199,8 @@
 	<section title="AFI/SAFI specific RIB Subtypes">
 	<t>
 		In order to preserve the record compaction achieved by using the most
-		common subtypes, and allowing multiple RIB entries to be stored in a single
-        TABLE_DUMP_V2 record, the existing RIB entries field is redefined for use
+		common subtypes, and allowing multiple RIB Entries to be stored in a single
+        TABLE_DUMP_V2 record, the existing RIB Entries field is redefined for use
 		within the new AFI/SAFI specific RIB Subtypes defined by this document as follows:
 	</t>
 	<figure title="RIB Entries for AFI/SAFI-specific RIB Subtypes with additional-paths support" anchor="RIBEntries">
@@ -208,13 +208,13 @@
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |         Peer Index            | ?????????????????????????????
+    |         Peer Index            |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
     |                         Originated Time                       |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
     |                         Path Identifier                       |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
-    |      Attribute Length         | ?????????????????????????????
+    |      Attribute Length         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                    BGP Attributes... (variable)
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -232,6 +232,9 @@
 		versions specified in <xref target="RFC6396">section 4.3.3</xref>. These fields continue to 
 		encapsulate the raw and addtional-path enabled AFI/SAFI/NLRI in the record, and the
 		raw attributes in the RIB Entries.
+	</t>
+	<t>
+		For clarity, the RIB Entries in this subtype are not redefined.
 	</t>
 	</section>
 
