@@ -6,13 +6,13 @@
      There has to be one entity for each item to be referenced. 
      An alternate method (rfc include) is described in the references. -->
 
-<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
-<!ENTITY RFC2629 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2629.xml">
-<!ENTITY RFC3552 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3552.xml">
-<!ENTITY RFC5226 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5226.xml">
-<!ENTITY RFC6396 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6396.xml">
-<!ENTITY RFC6793 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6793.xml">
-<!ENTITY I-D.ietf-idr-add-paths SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-add-paths.xml">
+<!ENTITY RFC2119 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC2629 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2629.xml">
+<!ENTITY RFC3552 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3552.xml">
+<!ENTITY RFC5226 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5226.xml">
+<!ENTITY RFC6396 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6396.xml">
+<!ENTITY RFC6793 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6793.xml">
+<!ENTITY I-D.ietf-idr-add-paths SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-add-paths.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <!-- used by XSLT processors -->
@@ -162,7 +162,7 @@
 	</t>
 	</section>
 
-    <section title="MRT Subtypes for Types BGP4MP/BGP4MP_ET">
+    <section anchor="bgp4mp-add-path-subtypes" title="MRT Subtypes for Types BGP4MP/BGP4MP_ET">
 	<t>
 		This document defines the following new Subtypes:
 		<list style="symbols">
@@ -179,7 +179,7 @@
 	</t>
 	</section>
 
-	<section title="MRT Subtypes for Type TABLE_DUMP_V2">
+	<section anchor="tabledumpv2-add-path-subtypes" title="MRT Subtypes for Type TABLE_DUMP_V2">
 	<t>
 		This document defines the following new Subtypes:
 		<list style="symbols">
@@ -197,7 +197,7 @@
 		as detailed in the sections below.
 	</t>
 
-	<section title="AFI/SAFI specific RIB Subtypes">
+	<section anchor="tabledumpv2-add-path-specific" title="AFI/SAFI specific RIB Subtypes">
 	<t>
 		In order to preserve the record compaction achieved by using the most
 		common subtypes, and allowing multiple RIB Entries to be stored in a single
@@ -227,7 +227,7 @@
 	</t>
 	</section>
 
-	<section title="RIB_GENERIC_ADDPATH Subtype">
+	<section anchor="tabledumpv2-add-path-generic" title="RIB_GENERIC_ADDPATH Subtype">
 	<t>
 		The fields of this subtype are identical to the equivalent non-additional-path 
 		versions specified in <xref target="RFC6396">section 4.3.3</xref>. These fields continue to 
@@ -243,30 +243,36 @@
 
     <section anchor="IANA" title="IANA Considerations">
 	<t>
-		This document requests that IANA adds the appropriate subtype codes to the MRT name space as follows:
+        This document requests that IANA assign the following subtype codes to the <eref target="https://www.iana.org/assignments/mrt/mrt.xhtml">MRT name space</eref>:
 	</t>
 	
-    <section title="BGP4MP/BGP4MP_ET subtype codes:">
-	<t>
-	<list style="symbols">
-		<t>BGP4MP_MESSAGE_ADDPATH = 8</t>
-		<t>BGP4MP_MESSAGE_AS4_ADDPATH = 9</t>
-		<t>BGP4MP_MESSAGE_LOCAL_ADDPATH = 10</t>
-		<t>BGP4MP_MESSAGE_AS4_LOCAL_ADDPATH = 11</t>
-	</list>
-	</t>
+    <section title="BGP4MP/BGP4MP_ET Subtype codes:">
+        <t>
+            <list style="empty">
+                <t>BGP4MP_MESSAGE_ADDPATH = 8 (<xref target="bgp4mp-add-path-subtypes"/>)</t>
+                <t>BGP4MP_MESSAGE_AS4_ADDPATH = 9 (<xref target="bgp4mp-add-path-subtypes"/>)</t>
+                <t>BGP4MP_MESSAGE_LOCAL_ADDPATH = 10 (<xref target="bgp4mp-add-path-subtypes"/>)</t>
+                <t>BGP4MP_MESSAGE_AS4_LOCAL_ADDPATH = 11 (<xref target="bgp4mp-add-path-subtypes"/>)</t>
+            </list>
+        </t>
+        <t>
+            The values provided above are suggested as they are used in implementations.
+        </t>
 	</section>
 
-	<section title="TABLE_DUMP_V2 subtype codes:">
-	<t>
-	<list style="symbols">
-		<t>RIB_IPV4_UNICAST_ADDPATH = 8</t>
-		<t>RIB_IPV4_MULTICAST_ADDPATH = 9</t>
-		<t>RIB_IPV6_UNICAST_ADDPATH = 10</t>
-		<t>RIB_IPV6_MULTICAST_ADDPATH = 11</t>
-		<t>RIB_GENERIC_ADDPATH = 12</t>
-	</list>
-	</t>
+	<section title="TABLE_DUMP_V2 Subtype codes:">
+	    <t>
+	        <list style="empty">
+                <t>RIB_IPV4_UNICAST_ADDPATH = 8 (<xref target="tabledumpv2-add-path-specific"/>)</t>
+                <t>RIB_IPV4_MULTICAST_ADDPATH = 9 (<xref target="tabledumpv2-add-path-specific"/>)</t>
+                <t>RIB_IPV6_UNICAST_ADDPATH = 10 (<xref target="tabledumpv2-add-path-specific"/>)</t>
+                <t>RIB_IPV6_MULTICAST_ADDPATH = 11 (<xref target="tabledumpv2-add-path-specific"/>)</t>
+                <t>RIB_GENERIC_ADDPATH = 12 (<xref target="tabledumpv2-add-path-generic"/>)</t>
+	        </list>
+	    </t>
+        <t>
+            The values provided above are suggested as they are used in implementations.
+        </t>
 	</section>
     
    	</section>
@@ -280,7 +286,7 @@
 		to this document, and this document permits the export of more detailed routing data.
 	</t>
 	<t>
-		An organisation that uses the MRT format to store their BGP routing information should be aware that supporting
+		An organization that uses the MRT format to store their BGP routing information should be aware that supporting
 		these extensions permits more detailed network path information to be stored, and should consider the implications
 		of this within their environment.
 	</t>
