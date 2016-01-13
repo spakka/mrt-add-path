@@ -230,7 +230,7 @@
 	<t>
 		The fields of this subtype are identical to the equivalent non-additional-path 
 		versions specified in <xref target="RFC6396">section 4.3.3</xref>. These fields continue to 
-		encapsulate the raw and addtional-path enabled AFI/SAFI/NLRI in the record, and the
+		encapsulate the raw and additional-path enabled AFI/SAFI/NLRI in the record, and the
 		raw attributes in the RIB Entries.
 	</t>
 	<t>
