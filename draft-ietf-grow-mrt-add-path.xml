@@ -68,7 +68,7 @@
       	</address>
     </author>
     <author fullname="Thomas King" initials="T." surname="King">
-		<organization>DE-CIX Management GmbH</organization>
+		<organization abbrev="DE-CIX">DE-CIX Management GmbH</organization>
 		<address>
 			<postal>
 				<street>Lichtstrasse 43i</street>
