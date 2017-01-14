@@ -6,12 +6,8 @@
      There has to be one entity for each item to be referenced. 
      An alternate method (rfc include) is described in the references. -->
 
-<!ENTITY RFC2119 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
-<!ENTITY RFC2629 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2629.xml">
-<!ENTITY RFC3552 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3552.xml">
-<!ENTITY RFC5226 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5226.xml">
 <!ENTITY RFC6396 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6396.xml">
-<!ENTITY I-D.ietf-idr-add-paths SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-add-paths.xml">
+<!ENTITY RFC7911 SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7911.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <!-- used by XSLT processors -->
@@ -38,7 +34,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-grow-mrt-add-paths-02" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-grow-mrt-add-paths-03" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -124,29 +120,23 @@
       	and routing information base snapshots.
 	</t>
 	<t>
-		The <xref target="I-D.ietf-idr-add-paths">Advertisement of Multiple Paths in BGP</xref>
+		The <xref target="RFC7911">Advertisement of Multiple Paths in BGP</xref>
 		defines a BGP extension to allow the advertisement of multiple paths for the same address
 		prefix without the new paths implicitly replacing any previous ones.
 	</t>
 	<t>
 		This document contains an optional extension to the MRT format <xref target="RFC6396"/>
 		and introduces additional definitions of MRT subtype fields to permit representation of
-		multiple path advertisements <xref target="I-D.ietf-idr-add-paths"/>.
+		multiple path advertisements <xref target="RFC7911"/>.
 	</t>
 
     </section>
-    <section title="Requirements Language">
-        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-        "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-        document are to be interpreted as described in <xref
-        target="RFC2119">RFC 2119</xref>.</t>
-      </section>
 	<section title="Rationale">
 	<t>
 		MRT parsers are usually stateless. In order to parse BGP messages which contain data structures that depend on
 		the capabilities negotiated during the BGP session setup, the so-called MRT subtypes are utilized.
 	
-		The <xref target="I-D.ietf-idr-add-paths">Advertisement of Multiple Path</xref> extension for BGP alters
+		The <xref target="RFC7911">Advertisement of Multiple Path</xref> extension for BGP alters
         the encoding of the BGP NLRI format for withdraws and announcements. Therefore new BGP4MP/BGP4MP_ET subtypes as defined
 		in <xref target="RFC6396"/> are required to signal to
 		a MRT parser how to parse the NLRI.
@@ -154,7 +144,7 @@
 	<t>
 		In <xref target="RFC6396">section 4.3</xref> of the MRT specification RIB subtypes are specified. Prefix length
 		and prefix fields are encoded in the same manner as the BGP NLRI encoding. In order to support path identifier information
-		as defined in <xref target="I-D.ietf-idr-add-paths"/> new subtypes need to be added.
+		as defined in <xref target="RFC7911"/> new subtypes need to be added.
 	</t>
 	<t>
 		The following two sections define the required subtypes.
@@ -200,7 +190,7 @@
 	<t>
 		In order to preserve the record compaction achieved by using the most
 		common subtypes, and allowing multiple RIB Entries to be stored in a single
-        TABLE_DUMP_V2 record, the existing RIB Entries field is redefined for use
+		TABLE_DUMP_V2 record, the existing RIB Entries field is redefined for use
 		within the new AFI/SAFI specific RIB Subtypes defined by this document as follows:
 	</t>
 	<figure title="RIB Entries for AFI/SAFI-specific RIB Subtypes with additional-paths support" anchor="RIBEntries">
@@ -313,16 +303,9 @@
      filing system or remote ones accessed by http (http://domain/dir/... ).-->
 
     <references title="Normative References">
-      &RFC2119;
       &RFC6396;
-      &I-D.ietf-idr-add-paths;
+      &RFC7911;
     </references>
 
-    <references title="Informative References">
-      <!-- Here we use entities that we defined at the beginning. -->
-      &RFC2629;
-      &RFC3552;
-      &RFC5226;
-    </references>
   </back>
 </rfc>
