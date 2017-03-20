@@ -34,7 +34,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-grow-mrt-add-paths-03" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-grow-mrt-add-paths-04" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -76,7 +76,7 @@
 		</address>
 	</author>
 
-    <date month="January" year="2017" />
+    <date month="March" year="2017" />
 
     <!-- If the month and year are both specified and are the current ones, xml2rfc will fill 
          in the current day for you. If only the current year is specified, xml2rfc will fill 
@@ -105,7 +105,7 @@
 
     <abstract>
     <t>
-    	This document updates the Multi-threaded Routing Toolkit (MRT)
+    	This document extends the Multi-threaded Routing Toolkit (MRT)
 		export format for Border Gateway Protocol (BGP) routing information
 		by extending it to support the Advertisement of Multiple Paths in BGP extensions.
 	</t>
@@ -134,7 +134,7 @@
 	<section title="Rationale">
 	<t>
 		MRT parsers are usually stateless. In order to parse BGP messages which contain data structures that depend on
-		the capabilities negotiated during the BGP session setup, the so-called MRT subtypes are utilized.
+		the capabilities negotiated during the BGP session setup, the MRT subtypes are utilized.
 	
 		The <xref target="RFC7911">Advertisement of Multiple Path</xref> extension for BGP alters
         the encoding of the BGP NLRI format for withdraws and announcements. Therefore new BGP4MP/BGP4MP_ET subtypes as defined
